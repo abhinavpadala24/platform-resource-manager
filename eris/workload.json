@@ -1,0 +1,10 @@
+{
+    "dc-server": {
+        "cpus": 17, 
+        "type": "latency_critical"
+    },
+    "goofy_ramanujan": {
+        "cpus": 5,
+        "type": "best_efforts"
+    }
+}

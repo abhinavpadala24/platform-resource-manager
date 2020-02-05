@@ -1,0 +1,24 @@
+# Generic
+.DS_Store
+*.egg-info
+*.pyc
+*.csv
+__pycache__
+.vscode
+*.o
+*.so
+*.yml
+*.yaml
+# VirtualEnv
+/env
+
+# platform-resource-manager specific
+pgos/pgos
+pgos/libpgos.h
+eris/pgos
+eris/lcmax.txt
+eris/metrics.csv
+eris/util.csv
+eris/tdp_thresh.csv
+eris/thresh.csv
+eris/threshold.json

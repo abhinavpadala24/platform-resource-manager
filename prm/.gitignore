@@ -1,0 +1,8 @@
+/.eggs
+/.tox
+/dist
+/wca.egg-info
+/threshold.json
+/prm.egg-info
+/.pex-cache
+/.pex-build
