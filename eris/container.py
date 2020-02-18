@@ -30,7 +30,8 @@ from itertools import islice
 from enum import Enum
 from os.path import join as path_join
 from analyze.analyzer import Metric
-
+import csv
+import pandas as pd
 
 class Contention(Enum):
     """ This enumeration defines resource contention type """
@@ -93,6 +94,13 @@ class Container(object):
             metrics[Metric.MSPKI],
         ]
         return ','.join(str(col) for col in cols) + '\n'
+
+    def get_latency_metrics(self):
+        mdf = pd.read_csv('latency.csv')
+        latency = mdf['latency']
+        self.latency = latency.tail(1)
+        print(self.latency)
+        return self.latency
 
     def update_metrics(self, row_tuple):
         key_mappings = [('time', str), (Metric.INST, int), (Metric.CYC, int),
@@ -164,7 +172,7 @@ class Container(object):
             pids - pid list of Container
         """
         self.pids = pids
-    
+
     def update_cpu_usage(self):
         """ calculate cpu usage of container """
         try:
@@ -179,7 +187,7 @@ class Container(object):
 
             cgroup_stat = path_join('/sys/fs/cgroup/cpu', self.parent_path,
                                   self.con_path, 'cpuacct.usage')
-            
+
             with open(cgroup_stat, 'r') as fi:
                 total_usage = int(fi.read().strip())
 
@@ -189,8 +197,8 @@ class Container(object):
 
             if cpu_delta > 0 and system_delta > 0:
                 cpu_util = (float(cpu_delta) / system_delta) * cpu_no * 100
-            
-            self.timestamp = cur 
+
+            self.timestamp = cur
             self.utils = cpu_util
             self.cpu_usage = total_usage
             self.system_usage = system_usage
@@ -238,6 +246,7 @@ class Container(object):
                 print('Latency critical container %s, CPI = %f, threshold =\
 %f' % (self.name, metrics[Metric.CPI], thresh['cpi']))
                 contend_res.append(Contention.UNKN)
+
 
         return contend_res
 

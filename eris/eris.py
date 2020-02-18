@@ -132,6 +132,7 @@ def set_metrics(ctx, timestamp, data):
         if metrics:
             if ctx.args.detect:
                 con.update_metrics_history()
+                con.get_latency_metrics()
 
             if ctx.args.record:
                 with open(Analyzer.METRIC_FILE, 'a') as metricf:
@@ -390,6 +391,7 @@ def detect_cgroup_driver():
     client = docker.from_env()
     dockinfo = client.info()
     cgroup_driver = dockinfo['CgroupDriver']
+    # returns: 'cgroupfs'
     return cgroup_driver
 
 
@@ -507,6 +509,7 @@ def main():
         threads.append(Thread(target=monitor,
                               args=(mon_metric_cycle,
                                     ctx, ctx.args.metric_interval)))
+
 
     for thread in threads:
         thread.start()
