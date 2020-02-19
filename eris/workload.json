@@ -1,6 +1,10 @@
 {
-    "modest_panini": {
-        "cpus": 4, 
-        "type": "best-efforts"
+    "dc-server": {
+        "cpus": 17, 
+        "type": "latency_critical"
+    },
+    "epic_keldysh": {
+        "cpus": 8,
+        "type": "best_efforts"
     }
 }

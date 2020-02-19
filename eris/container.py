@@ -99,7 +99,7 @@ class Container(object):
         mdf = pd.read_csv('latency.csv')
         latency = mdf['latency']
         self.latency = latency.tail(1)
-        print(self.latency)
+        #print(self.latency)
         return self.latency
 
     def update_metrics(self, row_tuple):
