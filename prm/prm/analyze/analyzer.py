@@ -37,6 +37,7 @@ class ThreshType(str, Enum):
 class Metric(str, Enum):
     """ This enumeration defines calculated metrics from wca measurements """
     CYC = 'cycle'
+    LATENCY = 'latency'
     INST = 'instruction'
     L3MISS = 'cache_miss'
     L3OCC = 'cache_occupancy'
@@ -152,6 +153,9 @@ class Analyzer:
                 cpi = jdataf[Metric.CPI]
                 cpi_thresh = self._get_fense(cpi, True, strict,
                                              span, use_origin)
+                latency = jdataf[Metric.LATENCY]
+                latency_thresh = self._get_fense(latency, True, strict,
+                                                span, use_origin)
                 mpki = jdataf[Metric.L3MPKI]
                 mpki_thresh = self._get_fense(mpki, True, strict,
                                               span, use_origin)
@@ -165,6 +169,7 @@ class Analyzer:
                     'util_start': lower_bound.item(),
                     'util_end': higher_bound.item(),
                     'cpi': np.float64(cpi_thresh).item(),
+                    'latency': np.float64(latency_thresh).item(),
                     'mpki': np.float64(mpki_thresh).item(),
                     'mb': np.float64(mb_thresh).item()
                 }
@@ -218,10 +223,12 @@ class Analyzer:
         self._process_lc_max(util_file)
         mdf = pd.read_csv(metric_file)
         cnames = mdf['name'].unique()
+        # cnames = ['dc-client', 'dc-server', 'stress-ng-app']
         for cname in cnames:
             self.threshold[cname] = {ThreshType.TDP.value: {}, ThreshType.METRICS.value: []}
             jdata = mdf[mdf['name'] == cname]
             self._build_tdp_thresh(jdata)
+            # build thresh for each cname or container
             self._build_thresh(jdata, span, strict, use_origin, verbose)
 
         if self.threshold:
