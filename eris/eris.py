@@ -494,7 +494,7 @@ def main():
 
     if ctx.args.collect_metrics:
         if ctx.args.record:
-            cols = ['time', 'cid', 'name', Metric.INST, Metric.CYC,
+            cols = ['time', 'cid', 'name', Metric.INST, Metric.CYC, Metric.LATENCY,
                     Metric.CPI, Metric.L3MPKI, Metric.L3MISS, Metric.NF,
                     Metric.UTIL, Metric.L3OCC, Metric.MBL, Metric.MBR,
                     Metric.L2STALL, Metric.MEMSTALL, Metric.L2SPKI,

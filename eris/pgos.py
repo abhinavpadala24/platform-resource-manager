@@ -23,7 +23,7 @@ import traceback
 from ctypes import cdll, Structure
 from ctypes import c_char_p, c_ulonglong, c_double, c_int, POINTER
 from analyze.analyzer import Metric
-
+import random
 
 class cgroup(Structure):
     _fields_ = [("ret", c_int),
@@ -67,10 +67,14 @@ class Pgos(object):
     def fin_pgos(self):
         self.lib.pgos_finalize()
 
+    def get_latency(self):
+        return int(random.uniform(10,20))
+
     def collect(self, cgps):
         ctx = self.ctx
         ctx.cgroup_count = len(cgps)
         cg_array = []
+        latency = self.get_latency()
         for cgp in cgps:
             cg = cgroup()
             cg.cid = cgp[0].encode()
@@ -94,6 +98,7 @@ class Pgos(object):
                                 {
                                     Metric.INST: cg.instructions,
                                     Metric.CYC: cg.cycles,
+                                    Metric.LATENCY: latency,
                                     Metric.L3MISS: cg.llc_misses,
                                     Metric.L2STALL: cg.stalls_l2_misses,
                                     Metric.MEMSTALL: cg.stalls_memory_load,

@@ -80,6 +80,7 @@ class Container(object):
             self.name,
             metrics[Metric.INST],
             metrics[Metric.CYC],
+            metrics[Metric.LATENCY],
             metrics[Metric.CPI],
             metrics[Metric.L3MPKI],
             metrics[Metric.L3MISS],
@@ -103,7 +104,7 @@ class Container(object):
         return self.latency
 
     def update_metrics(self, row_tuple):
-        key_mappings = [('time', str), (Metric.INST, int), (Metric.CYC, int),
+        key_mappings = [('time', str), (Metric.INST, int), (Metric.CYC, int), (Metric.LATENCY, int),
                         (Metric.CPI, float), (Metric.L3MPKI, float),
                         (Metric.L3MISS, int), (Metric.NF, float),
                         (Metric.L3OCC, int), (Metric.MBL, float),
