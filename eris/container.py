@@ -96,12 +96,12 @@ class Container(object):
         ]
         return ','.join(str(col) for col in cols) + '\n'
 
-    def get_latency_metrics(self):
+    """def get_latency_metrics(self):
         mdf = pd.read_csv('latency.csv')
         latency = mdf['latency']
         self.latency = latency.tail(1)
         #print(self.latency)
-        return self.latency
+        return self.latency """
 
     def update_metrics(self, row_tuple):
         key_mappings = [('time', str), (Metric.INST, int), (Metric.CYC, int), (Metric.LATENCY, int),
@@ -247,6 +247,10 @@ class Container(object):
                 print('Latency critical container %s, CPI = %f, threshold =\
 %f' % (self.name, metrics[Metric.CPI], thresh['cpi']))
                 contend_res.append(Contention.UNKN)
+
+        if metrics[Metric.LATENCY] > thresh['latency']:
+            print('QoS Violated')
+            contend_res.append(Contention.UNKN)
 
 
         return contend_res
