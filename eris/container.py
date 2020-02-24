@@ -96,12 +96,12 @@ class Container(object):
         ]
         return ','.join(str(col) for col in cols) + '\n'
 
-    """def get_latency_metrics(self):
+    def get_latency_metrics(self):
         mdf = pd.read_csv('latency.csv')
         latency = mdf['latency']
         self.latency = latency.tail(1)
         #print(self.latency)
-        return self.latency """
+        return self.latency
 
     def update_metrics(self, row_tuple):
         key_mappings = [('time', str), (Metric.INST, int), (Metric.CYC, int), (Metric.LATENCY, int),

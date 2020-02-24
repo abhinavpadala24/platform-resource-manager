@@ -2,5 +2,9 @@
     "dc-server": {
         "cpus": 17, 
         "type": "latency_critical"
+    },
+    "festive_beaver": {
+        "cpus": 8, 
+        "type": "best_efforts"
     } 
 }
