@@ -132,7 +132,6 @@ def set_metrics(ctx, timestamp, data):
         if metrics:
             if ctx.args.detect:
                 con.update_metrics_history()
-                con.get_latency_metrics()
 
             if ctx.args.record:
                 with open(Analyzer.METRIC_FILE, 'a') as metricf:

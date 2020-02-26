@@ -24,6 +24,7 @@ from ctypes import cdll, Structure
 from ctypes import c_char_p, c_ulonglong, c_double, c_int, POINTER
 from analyze.analyzer import Metric
 import random
+import datetime
 
 class cgroup(Structure):
     _fields_ = [("ret", c_int),
@@ -60,6 +61,7 @@ class Pgos(object):
         ctx.core = num_core
         ctx.period = period
         self.ctx = ctx
+        self.started_time = datetime.datetime.utcnow()
 
     def init_pgos(self):
         return self.lib.pgos_init()
@@ -68,7 +70,13 @@ class Pgos(object):
         self.lib.pgos_finalize()
 
     def get_latency(self):
-        return int(random.uniform(10,20))
+        time_passed = datetime.datetime.utcnow() - self.started_time
+        if time_passed.total_seconds() > 60:
+            print(12)
+            return 12
+        else:
+            print(16)
+            return 16
 
     def collect(self, cgps):
         ctx = self.ctx
