@@ -17,8 +17,8 @@ pgos/pgos
 pgos/libpgos.h
 eris/pgos
 eris/lcmax.txt
-eris/metrics.csv
-eris/util.csv
+#eris/metrics.csv
+#eris/util.csv
 eris/tdp_thresh.csv
 eris/thresh.csv
-eris/threshold.json
+#eris/threshold.json

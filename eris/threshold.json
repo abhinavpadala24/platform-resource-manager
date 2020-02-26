@@ -1,0 +1,21 @@
+{
+    "lcutilmax": 1240,
+    "dc-client": {
+        "tdp_threshold": {},
+        "metrics_threshold": []
+    },
+    "dc-server": {
+        "tdp_threshold": {},
+        "metrics_threshold": [
+            {
+                "util_start": 1200,
+                "util_end": 1250,
+                "cpi": 1.814386622059075,
+                "mpki": 3.90294245787346,
+                "mb": 0.0,
+                "l2spki": 437.8407880739855,
+                "mspki": 752.2841949499623
+            }
+        ]
+    }
+}
